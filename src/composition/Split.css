@@ -1,0 +1,14 @@
+.split {
+    flex: 1;
+    padding: 1em;
+}
+
+.left {
+    background-color: darkslategray;
+    color: azure;
+}
+
+.right {
+    background-color: wheat;
+    color: firebrick;
+}
