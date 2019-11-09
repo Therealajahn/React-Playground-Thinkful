@@ -7,27 +7,47 @@ class Accordian extends React.Component {
     state = {
         currentIndex:null,
     }
-    console.log(this.sections)
-    renderButtons() {
-        return this.props.sections.map((section,index) => (
-            <li>
-            <button
-            onClick={() => this.handleButtonClick(index)}
-            >{section.title}</button> 
-            </li>
-            ))
-    }
 
-    handleButtonClick(index){
+    handleSetActiveSection = (sectionIndex) => {
+        // console.log('buttonClicked', {index});
       this.setState({
-          content: index ,
+          activeSectionIndex: sectionIndex
       })    
     }
 
+    renderItem(section, index, activeSectionIndex) {
+       return (
+           <li key={index} className='Accordion__item'> 
+            <button onClick={() => this.handleSetActiveSection(index)}>
+                {section.title}
+            </button>
+           </li>
+       )
+        // return this.props.sections.map((section,index) => (
+        //     <li>
+        //     <button key={index}
+        //     onClick={() => this.handleButtonClick(index)}
+        //     >{section.title}</button> 
+        //     </li>
+        //     ))
+    }
+
+    
+
     renderContent() {
-      return (
-      <p>{this.props.sections[this.state.index].content}</p> 
-        ) 
+        const {activeSectionIndex} = this.state
+        const {sections} = this.props
+       return ( 
+           <ul className='Accordion'> 
+           {sections.map((section, index) =>
+           this.renderItem(section, index, activeSectionIndex)
+               
+           )}
+           </ul>)
+           
+    //   return (
+    //   <p>{this.props.sections[].content}</p> 
+    //     ) 
     }
     
    
@@ -35,16 +55,16 @@ class Accordian extends React.Component {
    
     
     
-    render(){
-        return(
-            <div className="Accordian">
-               <ul>
-                   {this.renderButtons()}
-                   {this.renderContent()}
-               </ul>
-            </div>
-        )     
-    }
+    // render(){
+    //     return(
+    //         <div className="Accordian">
+    //            <ul>
+    //                {this.renderButtons()}
+    //                {this.renderContent()}
+    //            </ul>
+    //         </div>
+    //     )     
+    // }
 }
 
 export default Accordian;
