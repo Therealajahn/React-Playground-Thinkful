@@ -5,7 +5,7 @@ import './index.css';
 // import HelloWorld from './state-drills/HelloWorld.js';
 // import Bomb from './state-drills/Bomb.js';
 // import RouletteGun from './state-drills/RouletteGun.js';
-import Accordian from './state-drills/Accordian.js';
+import Accordion from './state-drills/Accordion.js';
 
 const sections = [
     {
@@ -22,6 +22,6 @@ const sections = [
     },
   ]
 
-ReactDOM.render(<Accordian sections={sections}/>, document.getElementById('root'));
+ReactDOM.render(<Accordion sections={sections}/>, document.getElementById('root'));
 
 
