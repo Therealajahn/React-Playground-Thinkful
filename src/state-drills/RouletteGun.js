@@ -1,53 +1,58 @@
-import React, { Component } from 'react'
+import React from 'react';
 
-export default class RouletteGun extends Component {
-    static defaultProps = {
-        bulletInChamber: 8
-    };
-
+class RouletteGun extends React.Component {
     state = {
-        chamber: null,
+        gunStatus:"Ready to Die?",
+        chamber:null,
+        bulletInChamber:null,
         spinningTheChamber: false,
-    };
-
-    componentWillUnmount() {
-        clearTimeout(this.timeout)
     }
-
-    handleClick = () => {
+    
+   
+    buttonClicked = () => {
         this.setState({
-            spinningTheChamber: true,
-        })
-        this.timeout = setTimeout(() => {
-            const randomChamber = Math.ceil(Math.random() * 8)
-
+            spinningTheChamber:true,
+            gunStatus: "spinning the chamber and pulling the trigger! ...."
+        });
+        this.timeout = setInterval(() => {
             this.setState({
-                chamber: randomChamber,
+                chamber: Math.ceil(Math.random()*8),
                 spinningTheChamber: false,
-            })
-        }, 2000)
+                bulletInChamber: this.props.bulletInChamber
+            });
+            if(this.state.chamber !== this.props.bulletInChamber){
+                this.setState({
+                    gunStatus: "you're safe"
+                })    
+            }else{
+                this.setState({
+                    gunStatus: "BANG!!!!"
+                })
+            }
+        clearInterval(this.timeout)   
+        },2000)
+       
     }
 
-    renderDisplay() {
-        const { chamber, spinningTheChamber } = this.state
-        const { bulletInChamber } = this.props
-        if (spinningTheChamber) {
-            return 'spinning the chamber and pulling the trigger! ...'
-        } else if (chamber === bulletInChamber) {
-            return 'BANG!!!!!'
-        } else {
-            return 'you\'re safe!'
-        }
+    componentWillUnmount(){
+        clearInterval(this.timeout); 
     }
 
-    render() {
-        return (
-            <div className='RouletteGun'>
-                <p>{this.renderDisplay()}</p>
-                <button onClick={this.handleClick}>
-                    Pull the trigger!
-        </button>
+    
+    
+   
+
+   
+    
+    
+    render(){
+        return(
+            <div className="Bomb">
+               <button onClick={this.buttonClicked}>Spin and Pull</button>
+               <p>{this.state.gunStatus}</p>  
             </div>
-        )
+        )     
     }
 }
+
+export default RouletteGun;
